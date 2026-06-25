@@ -1,55 +1,34 @@
 # Octo-Telnet
 
-```
-╔══════════════════════════════════╗
-║  ┌────────────────────────────┐  ║
-║  │                            │  ║
-║  │       octo-telnet          │  ║
-║  │   raw bytes, bare hands    │  ║
-║  │                            │  ║
-║  │   > _                      │  ║
-║  └────────────────────────────┘  ║
-╚══════════════════════════════════╝
-```
+A web-based Telnet client in Rust.  
+Browser ↔ WebSocket ↔ Rust ↔ TCP ↔ BBS.
 
-A web-based Telnet client in Rust.
+## Quick Start
 
-Raw TCP, hand-parsed HTTP, hand-rolled WebSocket, and Telnet from the ground up.
+Run `cargo run` and then visit `http://localhost:2233` in your browser. Enter a BBS address and click Connect.
 
-```
-Browser <--WS--> Rust <--TCP--> BBS
-```
+## Features
 
-## Quick start
+- Connects to public Telnet BBS servers.
+- Renders terminal output in the browser with retro CRT styling.
+- Supports ANSI colors, cursor movement, and CJK text.
+- Encoding selectable: UTF-8, GBK, CP437.
 
-```bash
-cargo run
-```
+## Modules
 
-Open `http://localhost:2233`, type a BBS address, click Connect.
-
-## What it does
-
-- Connects to public Telnet BBS servers
-- Renders terminal output with retro CRT styling in the browser
-- Handles ANSI colors, cursor movement, CJK text
-- Encoding switchable: UTF-8, GBK, CP437
-
-## What's inside
-
-| Module | Layer |
-|--------|-------|
+| Module | Purpose |
+|--------|---------|
 | `sha1.rs` | SHA-1 from scratch (RFC 3174) |
 | `base64.rs` | Base64 from scratch (RFC 4648) |
 | `http.rs` | HTTP/1.1 parser and response builder |
 | `websocket.rs` | WebSocket frame encode/decode (RFC 6455) |
 | `telnet.rs` | Telnet IAC state machine (RFC 854) |
-| `handler.rs` | Bidirectional WS <-> TCP proxy |
-| `static/` | CRT-style terminal frontend |
+| `handler.rs` | Bidirectional WS ↔ TCP proxy |
+| `static/` | CRT‑style terminal frontend |
 
-## A byte is a byte
+## Encoding
 
-The terminal receives raw bytes from the BBS and decodes them at rest. UTF-8, GBK, CP437 -- the encoding is yours to choose, and it takes effect only when a full chunk lands. ANSI escapes are peeled off at the byte level before the text is touched.
+The terminal receives raw bytes from the BBS. Decoding (UTF‑8, GBK, or CP437) is applied per complete chunk. ANSI escapes are stripped at the byte level before text conversion.
 
 ## License
 
