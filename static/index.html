@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Octo-Telnet</title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+    <div id="app">
+        <!-- Connection bar -->
+        <div id="connection-bar">
+            <label for="host-input">BBS Server:</label>
+            <input type="text" id="host-input" value="" placeholder="hostname:port or telnet://hostname. eg. telnet://bbs.net:23 or bbs.net:23">
+            <button id="connect-btn">Connect</button>
+            <button id="disconnect-btn" disabled>Disconnect</button>
+            <span id="status-indicator" class="status-disconnected">Disconnected</span>
+        </div>
+
+        <!-- CRT Terminal screen -->
+        <div id="crt-wrapper">
+            <div id="crt-screen">
+                <pre id="terminal-output"></pre>
+                <div id="cursor"></div>
+            </div>
+            <div id="scanlines"></div>
+            <div id="glow"></div>
+        </div>
+
+        <!-- Status bar -->
+        <div id="status-bar">
+            <span id="terminal-size">80x25</span>
+            <span id="encoding">UTF-8 / VT100</span>
+            <select id="encoding-select">
+                <option value="utf-8">UTF-8</option>
+                <option value="gbk">GBK</option>
+                <option value="cp437">CP437</option>
+            </select>
+            <span id="connection-info"></span>
+        </div>
+    </div>
+
+    <script src="/app.js"></script>
+</body>
+</html>
