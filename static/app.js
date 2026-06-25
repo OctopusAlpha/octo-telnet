@@ -693,6 +693,33 @@
         requestAnimationFrame(render);
     }
 
+    function showWelcomeBanner() {
+        var banner = [
+            '  ╔══════════════════════════════════╗',
+            '  ║  ┌────────────────────────────┐  ║',
+            '  ║  ╎                            ╎  ║',
+            '  ║  ╎       octo-telnet          ╎  ║',
+            '  ║  ╎   raw bytes, bare hands    ╎  ║',
+            '  ║  ╎                            ╎  ║',
+            '  ║  ╎   > _                      ╎  ║',
+            '  ║  └────────────────────────────┘  ║',
+            '  ╚══════════════════════════════════╝',
+            '',
+            '  Enter a BBS address above and click Connect.',
+        ];
+        clearGrid();
+        cursorX = 0;
+        cursorY = 0;
+        for (var i = 0; i < banner.length; i++) {
+            cursorX = 0;
+            for (var j = 0; j < banner[i].length; j++) {
+                putChar(banner[i][j], 1);
+            }
+            cursorY++;
+        }
+        requestRender();
+    }
+
     function render() {
         renderPending = false;
 
@@ -821,6 +848,7 @@
             disconnectBtn.disabled = true;
             connectionInfo.textContent = '';
             ws = null;
+            showWelcomeBanner();
         };
     }
 
@@ -834,6 +862,7 @@
         connectBtn.disabled = false;
         disconnectBtn.disabled = true;
         connectionInfo.textContent = '';
+        showWelcomeBanner();
     }
 
     function setStatus(status) {
@@ -966,5 +995,5 @@
     });
 
     // Initial render
-    render();
+    showWelcomeBanner();
 })();
